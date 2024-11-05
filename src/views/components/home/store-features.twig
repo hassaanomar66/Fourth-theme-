@@ -1,7 +1,7 @@
 {#
 | Variable      | Type   | Description                                                      |
 |---------------|--------|------------------------------------------------------------------|
-| items[]       | array  | List of 3 features                                               |
+| items[]       | array  | List of 4 features                                               |
 | items[].icon  | string | SallaIcons css class `sicon-*`                                   |
 | items[].title | string | Title of the feature                                             |
 | items[].text  | string | Subtitle for the feature                                         |
@@ -9,6 +9,28 @@
 #}
 <section class="s-block s-block--features container">
     <div class="grid grid-cols-[repeat(2,minmax(0,1fr))] md:grid-cols-[repeat(3,minmax(0,1fr))] gap-4 sm:gap-6 xl:gap-8">
+      {% assign items = [
+        {
+          "icon": "sicon-star",
+          "title": "تجربة مستخدم استثنائية",
+          "text": "استمتع بتجربة تصفح سلسة وسهلة مع واجهة مستخدم جذابة."
+        },
+        {
+          "icon": "sicon-lock",
+          "title": "أمان موثوق",
+          "text": "نضمن لك حماية بياناتك مع تقنيات أمان متطورة."
+        },
+        {
+          "icon": "sicon-mobile",
+          "title": "توافق مع الهواتف",
+          "text": "تصفح متجرك من أي جهاز، سواء كان هاتفًا أو جهاز لوحي."
+        },
+        {
+          "icon": "sicon-basket",
+          "title": "عروض خاصة",
+          "text": "استفد من خصومات حصرية وعروض لا تفوت!"
+        }
+      ] %}
       {% for item in items %}
           <div class="s-block--features__item">
             <div class="feature-icon">
