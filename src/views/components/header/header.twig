@@ -8,13 +8,12 @@
 {% set important_links = theme.settings.get('important_links') %}
 <header class="store-header">
   {# شريط الإعلانات المتحرك #}
-  <div class="announcement-bar">
-      <p>احصل على 900خصم 20% على أول طلب لك!</p>
+  <div class="announcement-bar" style="color: {{ theme.settings.announcement_text_color }}; font-family: {{ theme.settings.announcement_font }}; font-size: {{ theme.settings.announcement_font_size }};">
+      <p>{{ theme.settings.announcement_text }}</p>
   </div>
   <style>
   .announcement-bar {
-      background-color: #f8d7da; /* لون الخلفية */
-      color: #721c24; /* لون النص */
+      background-color: {{ theme.settings.announcement_background_color }}; /* لون الخلفية */
       padding: 10px;
       text-align: center;
       animation: slide 5s infinite alternate;
@@ -84,10 +83,10 @@
                   </div>
                   <div class="flex items-center justify-end">
                       {% if user.type=='user' %}
-                        <salla-user-menu avatar-only show-header></salla-user-menu>
+                        <salla-user-menu icon="{{ theme.settings.user_icon }}" avatar-only show-header></salla-user-menu>
                       {% else %}
                           <button class="header-btn" aria-label="user-icon" onclick="salla.event.dispatch('login::open')">
-                            <i class="header-btn__icon sicon-user-circle"></i>
+                            <img src="{{ theme.settings.default_user_icon }}" alt="User Icon" class="header-btn__icon">
                           </button>
                       {% endif %}
                       <salla-cart-summary class="ml-4 rtl:ml-[unset] rtl:mr-4">
@@ -99,6 +98,20 @@
       </div>
   </div>
 </header>
+
+{# إضافة صورة قابلة للتكبير عند فتح المتجر #}
+<div class="popup-image-container" id="popup-image" style="display: none;">
+    <img id="zoom-image" src="{{ theme.settings.popup_image }}" alt="Popup Image" onclick="this.style.display='none';" style="cursor: zoom-in;">
+</div>
+<script>
+    window.onload = function() {
+        document.getElementById('popup-image').style.display = 'block';
+        document.getElementById('zoom-image').onclick = function() {
+            this.style.display = 'none';
+        };
+    };
+</script>
+
 {% if store.scope %}
     <salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
 {% endif %}
@@ -111,6 +124,7 @@
     padding: 15px;
     text-align: center;
     transition: transform 0.2s;
+    background-color: #fff; /* لون الخلفية */
 }
 .product-card:hover {
     transform: scale(1.05);
@@ -137,5 +151,11 @@
 /* تأثير الظل */
 .shadow-default {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* تحسين الشريط العلوي والسفلي */
+.top-navbar {
+    background-color: #f8f9fa; /* لون الخلفية */
+    border-bottom: 2px solid #28a745; /* خط أسفل */
 }
 </style>
